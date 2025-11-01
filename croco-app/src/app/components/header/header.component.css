@@ -1,0 +1,28 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #00ad09, #007a05);
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+}
+
+.title {
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.datetime {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+}

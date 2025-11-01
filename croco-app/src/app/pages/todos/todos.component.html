@@ -1,0 +1,13 @@
+<div class="todos-container">
+  <h2>Todos for User {{ userId() }}</h2>
+
+  @for (todo of todos(); track todo.id) {
+    <li [style.color]="todo.completed ? 'green' : 'black'">
+      {{ todo.title }}
+    </li>
+  }
+
+  @empty {
+    <li>No todos found for this user.</li>
+  }
+</div>

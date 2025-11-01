@@ -1,0 +1,73 @@
+<div class="offers-container">
+  <h2>Spin Wheel</h2>
+
+  <!-- Wheel Sectors -->
+  <div class="wheel">
+    @for (n of wheelNumbers; track n) {
+      <div class="sector" [class.active]="spinNumber() === n">{{ n }}</div>
+    }
+    @empty {
+      <div>No sectors available</div>
+    }
+  </div>
+
+  <!-- Wheel Input & Button -->
+  <div class="wheel-controls">
+    <input
+      type="number"
+      min="1"
+      max="10"
+      [(ngModel)]="inputNumber"
+      placeholder="Enter sector 1-10"
+    >
+    <button (click)="spinWheel()">Spin</button>
+  </div>
+
+  <!-- Leaderboard Filters -->
+  <div class="leaderboard-filters">
+    @for (w of weekOptions; track w) {
+      <button
+        (click)="setFilter(w)"
+        [class.active]="filterWeek() === w"
+      >
+        {{ w }}
+      </button>
+    }
+    @empty {
+      <div>No filter options</div>
+    }
+  </div>
+
+  <!-- Leaderboard Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>Place</th>
+        <th>Login Name</th>
+        <th>Customer ID</th>
+        <th>Week</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of filteredLeaderboard(); track item.customerId + '-' + item.week + '-' + item.place) {
+        <tr>
+          <td>{{ item.place }}</td>
+          <td>{{ item.loginName }}</td>
+          <td>{{ item.customerId }}</td>
+          <td>{{ item.week }}</td>
+          <td>
+            <a routerLink="/posts" [queryParams]="{ userId: item.customerId }" routerLinkActive="active-link" class="posts-btn">
+              Posts
+            </a>
+          </td>
+        </tr>
+      }
+      @empty {
+        <tr>
+          <td colspan="5">No records found.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

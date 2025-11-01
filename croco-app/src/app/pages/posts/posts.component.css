@@ -1,0 +1,116 @@
+.posts-container { 
+  padding: 20px; 
+  max-width: 900px;
+  margin: auto; 
+  font-family: Arial, sans-serif;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  background-color: #fafafa;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.card p {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.card button { 
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #00ad09, #007f06); /* Green gradient */
+  color: white;
+  border: none; 
+  border-radius: 6px; 
+  cursor: pointer; 
+  transition: transform 0.2s, background 0.3s;
+}
+
+.card button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #007f06, #005c04); /* Darker green */
+}
+
+/* Popup overlay */
+
+.popup { 
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  background: rgba(0, 0, 0, 0.6); 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none; /* Prevent clicks when hidden */
+  transition: opacity 0.3s, visibility 0.3s;
+  z-index: 1000;
+}
+
+.popup.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto; /* Allow clicks when visible */
+}
+
+
+.popup-content { 
+  background: white; 
+  padding: 25px; 
+  border-radius: 12px; 
+  width: 400px; 
+  max-width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.popup-content h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #00ad09; 
+}
+
+.popup-content p {
+  color: #555;
+  line-height: 1.5;
+}
+
+.popup-content button {
+  margin-top: 15px;
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #00ad09, #007f06); /* Green gradient */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s; 
+}
+
+.popup-content button:hover {
+  transform: scale(1.05); 
+  background: linear-gradient(135deg, #007f06, #005c04);
+}
+

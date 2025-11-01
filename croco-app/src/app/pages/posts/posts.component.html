@@ -1,0 +1,26 @@
+<div class="posts-container">
+  <h2>Posts by User {{ userId() }}</h2>
+
+  <!-- Cards List -->
+  <div class="cards">
+    @for (post of posts(); track post.id) {
+      <div class="card">
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.body | slice:0:100 }}...</p>
+        <button (click)="openPopup(post)">Details</button>
+      </div>
+    }
+    @empty {
+      <p>No posts found for this user.</p>
+    }
+  </div>
+
+  <!-- Popup -->
+  <div class="popup" [class.active]="selectedPost()">
+    <div class="popup-content">
+      <h3>{{ selectedPost()?.title }}</h3>
+      <p>{{ selectedPost()?.body }}</p>
+      <button (click)="closePopup()">Close</button>
+    </div>
+  </div>
+</div>

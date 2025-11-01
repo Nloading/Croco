@@ -1,0 +1,40 @@
+<h2>Leaderboard</h2>
+
+<!-- Filter Buttons -->
+<div class="leaderboard-filters">
+  @for (week of weekOptions; track week) {
+    <button
+      (click)="setFilter(week)"
+      [class.active]="filterWeek() === week">{{ week }}
+    </button>
+  }
+</div>
+
+<!-- Leaderboard Table -->
+<table>
+  <thead>
+    <tr>
+      <th>Place</th>
+      <th>Login Name</th>
+      <th>Customer ID</th>
+      <th>Week</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of filteredLeaderboard(); track item.customerId) {
+      @if (filterWeek() === 'ALL' || item.week === filterWeek()) {
+        <tr>
+          <td>{{ item.place }}</td>
+          <td>{{ item.loginName }}</td>
+          <td>{{ item.customerId }}</td>
+          <td>{{ item.week }}</td>
+        </tr>
+      }
+    }
+    @empty {
+      <tr>
+        <td colspan="4">No data found.</td>
+      </tr>
+    }
+  </tbody>
+</table>
