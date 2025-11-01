@@ -20,7 +20,7 @@ export interface LeaderboardItem {
   styleUrls: ['./offers.component.css'],
 })
 export class OffersComponent {
-  // ====== Wheel ======
+  // ====== Wheel Data ======
   wheelNumbers = Array.from({ length: 10 }, (_, i) => i + 1);
   inputNumber = signal<number | null>(null);
   rotationAngle = signal<number>(0);
@@ -32,7 +32,6 @@ export class OffersComponent {
   filterWeek = signal<WeekType>('ALL');
   weekOptions: WeekType[] = ['I', 'II', 'III', 'IV', 'ALL'];
 
-  // ====== Generate random leaderboard ======
   generateLeaderboard(): LeaderboardItem[] {
     const weeks: Exclude<WeekType, 'ALL'>[] = ['I', 'II', 'III', 'IV'];
     const data: LeaderboardItem[] = [];
@@ -51,7 +50,6 @@ export class OffersComponent {
     return data;
   }
 
-  // ====== Filter Leaderboard ======
   setFilter(week: WeekType) {
     this.filterWeek.set(week);
   }
@@ -66,14 +64,15 @@ export class OffersComponent {
   spinWheel() {
     const n = this.inputNumber();
     if (!n || n < 1 || n > 10) {
-      this.errorMessage.set('Invalid sector number (1-10)');
+      this.errorMessage.set('Invalid number (1–10)');
       return;
     }
 
     this.errorMessage.set('');
     const sectorAngle = 360 / 10;
     const randomSpins = 5 * 360;
-    const targetAngle = (10 - n + 1) * sectorAngle; // reverse for alignment
+    const targetAngle = (10 - n + 1) * sectorAngle;
+
     this.currentRotation += randomSpins + targetAngle;
     this.rotationAngle.set(this.currentRotation);
   }

@@ -1,48 +1,40 @@
 <div class="offers-container">
   <h2>Spin the Wheel</h2>
 
-  <!-- Wheel -->
+  <!-- Wheel wrapper -->
   <div class="wheel-wrapper">
     <div class="wheel" [style.transform]="'rotate(' + rotationAngle() + 'deg)'">
-      @for (n of wheelNumbers; track n) {
-        <div class="sector" [style.transform]="'rotate(' + ((n - 1) * 36) + 'deg)'">
-          <span class="sector-label">{{ n }}</span>
+      @for (n of wheelNumbers; let i = $index; track n) {
+        <div class="sector" [style.transform]="'rotate(' + (i * 36) + 'deg)'">
+          <span class="sector-label" [style.transform]="'rotate(' + -(i * 36) + 'deg)'">
+            {{ n }}
+          </span>
         </div>
       }
     </div>
     <div class="pointer"></div>
   </div>
 
-  <!-- Input + Button -->
+  <!-- Controls -->
   <div class="wheel-controls">
-    <input
-      type="number"
-      min="1"
-      max="10"
-      [(ngModel)]="inputNumber"
-      placeholder="Enter 1-10"
-    />
+    <input type="number" min="1" max="10" [(ngModel)]="inputNumber" placeholder="Enter 1-10" />
     <button (click)="spinWheel()">Spin</button>
   </div>
 
-  <!-- Error Message -->
   @if (errorMessage()) {
     <div class="error-message">{{ errorMessage() }}</div>
   }
 
-  <!-- Leaderboard Filters -->
+  <!-- Week filters -->
   <div class="leaderboard-filters">
     @for (w of weekOptions; track w) {
-      <button
-        (click)="setFilter(w)"
-        [class.active]="filterWeek() === w"
-      >
+      <button (click)="setFilter(w)" [class.active]="filterWeek() === w">
         {{ w }}
       </button>
     }
   </div>
 
-  <!-- Leaderboard Table -->
+  <!-- Table -->
   <table>
     <thead>
       <tr>
