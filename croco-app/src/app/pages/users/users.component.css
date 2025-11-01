@@ -1,74 +1,182 @@
+/* Main content space for sidebar */
+.main-content {
+  margin-left: 240px; /* sidebar width */
+  padding: 40px 50px;
+  min-height: calc(100vh - 160px); /* adjust for header/footer */
+  transition: margin-left 0.3s ease;
+}
+
+/* Users container */
 .users-container {
-  padding: 20px;
-  max-width: 900px;
-  margin: auto;
-  font-family: Arial, sans-serif;
+  padding: 40px;
+  max-width: 100%;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9fdf9;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
 
-input {
-  padding: 10px;
-  margin-bottom: 15px;
-  width: 100%;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+/* Page title */
+.page-title {
+  font-size: 2rem;
+  color: #007a05;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Search input */
+.search-box input {
+  width: 94%;
+  padding: 14px;
+  border-radius: 10px;
+  border: 2px solid #cfcfcf;
   outline: none;
-  transition: border-color 0.3s;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-input:focus {
+.search-box input:focus {
   border-color: #00ad09;
+  box-shadow: 0 4px 12px rgba(0, 173, 9, 0.2);
 }
 
+/* Table container with responsive scroll */
+.table-container {
+  overflow-x: auto;
+  margin-top: 20px;
+  border-radius: 12px;
+}
+
+/* Table styles */
 table {
   width: 100%;
   border-collapse: collapse;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
+  table-layout: fixed;
 }
 
 th, td {
-  border: 1px solid #ccc;
-  padding: 10px;
+  padding: 14px 18px;
   text-align: left;
+  border-bottom: 1px solid #ddd;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 th {
-  background-color: #f5f5f5;
+  background: linear-gradient(135deg, #00ad09, #007a05);
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+tr:nth-child(even) {
+  background-color: #f3f9f3;
+}
+
+tr:hover {
+  background-color: #e9f8eb;
+  transition: 0.3s;
+}
+
+/* Buttons */
+.posts-btn,
+.todos-btn {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: transform 0.2s, box-shadow 0.3s;
 }
 
 .posts-btn {
-  padding: 6px 12px;
-  background-color: #00ad09;
+  background: linear-gradient(135deg, #00ad09, #007a05);
   color: white;
-  border: none;
-  border-radius: 6px;
-  transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
-  cursor: pointer;
 }
 
-.posts-btn:hover {
-  transform: scale(1.05);
-  background-color: #007a05;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-
-/* Updated Todos Button with Gradient */
 .todos-btn {
-  padding: 6px 12px;
   background: linear-gradient(135deg, #ffd700, #e4ba00);
   color: white;
-  border: none;
-  border-radius: 6px;
-  transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-  margin-top: 5px;
+  margin-top: 8px;
 }
 
+.posts-btn:hover,
 .todos-btn:hover {
-  transform: scale(1.05);
-  background: linear-gradient(135deg, #e6c200, #8c6f00);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  color: white;
+  transform: scale(1.07);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+}
+
+/* Responsive adjustments */
+
+/* Tablets */
+@media (max-width: 992px) {
+  .main-content {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+}
+
+/* Phones - stacked card view */
+@media (max-width: 600px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+    width: 100%;
+  }
+
+  thead tr {
+    display: none; /* hide header */
+  }
+
+  tbody tr {
+    margin-bottom: 20px;
+    background: #f3f9f3;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 12px 16px;
+  }
+
+  tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    text-align: right;
+    border: none;
+    position: relative;
+  }
+
+  tbody td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 12px;
+    font-weight: bold;
+    color: #007a05;
+    text-align: left;
+  }
+
+  .posts-btn,
+  .todos-btn {
+    width: 48%;
+    margin: 5px 1% 0 1%;
+    font-size: 0.85rem;
+  }
 }

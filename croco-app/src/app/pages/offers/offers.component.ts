@@ -21,51 +21,54 @@ export interface LeaderboardItem {
   styleUrls: ['./offers.component.css']
 })
 export class OffersComponent {
-  spinNumber = signal<number | null>(null);
-  inputNumber = signal<number>(1);
-
-  wheelNumbers = Array.from({ length: 10 }, (_, i) => i + 1);
-
+  // ---- signals ----
   leaderboard = signal<LeaderboardItem[]>(this.generateLeaderboard());
   filterWeek = signal<WeekType>('ALL');
+  weekOptions: WeekType[] = ['I', 'II', 'III', 'IV', 'ALL'];
 
-  weekOptions: WeekType[] = ['I','II','III','IV','ALL'];
+  // ---- wheel data ----
+  spinNumber = signal<number | null>(null);
+  inputNumber = signal<number>(1);
+  wheelNumbers = Array.from({ length: 10 }, (_, i) => i + 1);
 
-  // Generate leaderboard with 10 items per week
+  // ======== GENERATE LEADERBOARD ========
   generateLeaderboard(): LeaderboardItem[] {
-    const weeks: Exclude<WeekType, 'ALL'>[] = ['I','II','III','IV'];
-    const items: LeaderboardItem[] = [];
-    weeks.forEach(w => {
-      for(let i=0; i<10; i++){
-        items.push({
-          customerId: Math.floor(Math.random()*1000),
-          loginName: `User${Math.floor(Math.random()*1000)}`,
-          place: i + 1,
+    const weeks: Exclude<WeekType, 'ALL'>[] = ['I', 'II', 'III', 'IV'];
+    const data: LeaderboardItem[] = [];
+
+    // თითო კვირაზე მინიმუმ 10 ობიექტი
+    weeks.forEach((w) => {
+      for (let i = 1; i <= 10; i++) {
+        data.push({
+          customerId: Math.floor(Math.random() * 10) + 1, // ✅ რეალური userId 1–10
+          loginName: `User${Math.floor(Math.random() * 1000)}`,
+          place: i,
           week: w
         });
       }
     });
-    return items;
+
+    return data;
   }
 
-  // Spin wheel to the input number
-  spinWheel() {
-    const n = this.inputNumber();
-    if(n < 1 || n > 10){
-      alert("აღნიშნული სექტორი ვერ მოიძებნა");
-      return;
-    }
-    this.spinNumber.set(n);
-  }
-
-  // Filter leaderboard by week
+  // ======== FILTER BY WEEK ========
   setFilter(week: WeekType) {
     this.filterWeek.set(week);
   }
 
-  // Computed filtered leaderboard
   filteredLeaderboard() {
-    const f = this.filterWeek();
-    return this.leaderboard().filter(item => f === 'ALL' || item.week === f);
+    const selected = this.filterWeek();
+    if (selected === 'ALL') return this.leaderboard();
+    return this.leaderboard().filter(item => item.week === selected);
+  }
+
+  // ======== SPIN WHEEL ========
+  spinWheel() {
+    const n = this.inputNumber();
+    if (n < 1 || n > 10) {
+      alert('აღნიშნული სექტორი ვერ მოიძებნა');
+      return;
+    }
+    this.spinNumber.set(n);
   }
 }
