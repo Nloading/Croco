@@ -1,8 +1,7 @@
 import { Component, signal } from '@angular/core';
-import { NgClass, CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 export type WeekType = 'I' | 'II' | 'III' | 'IV' | 'ALL';
 
@@ -16,34 +15,35 @@ export interface LeaderboardItem {
 @Component({
   selector: 'app-offers',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, RouterLinkActive, HttpClientModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './offers.component.html',
-  styleUrls: ['./offers.component.css']
+  styleUrls: ['./offers.component.css'],
 })
 export class OffersComponent {
-  // ---- signals ----
+  // ====== Wheel ======
+  wheelNumbers = Array.from({ length: 10 }, (_, i) => i + 1);
+  inputNumber = signal<number | null>(null);
+  rotationAngle = signal<number>(0);
+  currentRotation = 0;
+  errorMessage = signal<string>('');
+
+  // ====== Leaderboard ======
   leaderboard = signal<LeaderboardItem[]>(this.generateLeaderboard());
   filterWeek = signal<WeekType>('ALL');
   weekOptions: WeekType[] = ['I', 'II', 'III', 'IV', 'ALL'];
 
-  // ---- wheel data ----
-  spinNumber = signal<number | null>(null);
-  inputNumber = signal<number>(1);
-  wheelNumbers = Array.from({ length: 10 }, (_, i) => i + 1);
-
-  // ======== GENERATE LEADERBOARD ========
+  // ====== Generate random leaderboard ======
   generateLeaderboard(): LeaderboardItem[] {
     const weeks: Exclude<WeekType, 'ALL'>[] = ['I', 'II', 'III', 'IV'];
     const data: LeaderboardItem[] = [];
 
-    // თითო კვირაზე მინიმუმ 10 ობიექტი
     weeks.forEach((w) => {
       for (let i = 1; i <= 10; i++) {
         data.push({
-          customerId: Math.floor(Math.random() * 10) + 1, // ✅ რეალური userId 1–10
+          customerId: Math.floor(Math.random() * 1000),
           loginName: `User${Math.floor(Math.random() * 1000)}`,
           place: i,
-          week: w
+          week: w,
         });
       }
     });
@@ -51,7 +51,7 @@ export class OffersComponent {
     return data;
   }
 
-  // ======== FILTER BY WEEK ========
+  // ====== Filter Leaderboard ======
   setFilter(week: WeekType) {
     this.filterWeek.set(week);
   }
@@ -59,16 +59,22 @@ export class OffersComponent {
   filteredLeaderboard() {
     const selected = this.filterWeek();
     if (selected === 'ALL') return this.leaderboard();
-    return this.leaderboard().filter(item => item.week === selected);
+    return this.leaderboard().filter((item) => item.week === selected);
   }
 
-  // ======== SPIN WHEEL ========
+  // ====== Spin Wheel ======
   spinWheel() {
     const n = this.inputNumber();
-    if (n < 1 || n > 10) {
-      alert('აღნიშნული სექტორი ვერ მოიძებნა');
+    if (!n || n < 1 || n > 10) {
+      this.errorMessage.set('Invalid sector number (1-10)');
       return;
     }
-    this.spinNumber.set(n);
+
+    this.errorMessage.set('');
+    const sectorAngle = 360 / 10;
+    const randomSpins = 5 * 360;
+    const targetAngle = (10 - n + 1) * sectorAngle; // reverse for alignment
+    this.currentRotation += randomSpins + targetAngle;
+    this.rotationAngle.set(this.currentRotation);
   }
 }

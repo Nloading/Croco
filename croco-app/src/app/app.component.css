@@ -1,26 +1,68 @@
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  min-height: 100vh;
 }
 
 .main-layout {
   display: flex;
   width: 100%;
-  justify-content: center;
+  justify-content: flex-start; /* sidebar to the left position*/
+  align-items: flex-start;
 }
 
+/* Sidebar (navigation) */
 app-navigation {
-  width: 20%;
-  min-width: 150px;
+  flex: 0 0 220px; /* fixed width */
+  min-width: 200px;
+  max-width: 240px;
+  height: 100%;
+  position: sticky;
+  top: 0;
 }
 
+/* Main content wrapper */
 .content {
-  width: 50%;
+  flex: 1;
+  max-width: 1100px; /* limit for large screens */
+  margin: 0 auto;
+  padding: 40px 30px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center; /* center inside */
 }
 
-@media (max-width: 1024px) {
+/* Footer stays at bottom */
+app-footer {
+  margin-top: auto;
+}
+
+/* Tablet view */
+@media (max-width: 992px) {
+  .main-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  app-navigation {
+    width: 100%;
+    position: relative;
+    min-width: unset;
+    max-width: none;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+  }
+
   .content {
-    width: 80%;
+    width: 95%;
+    padding: 20px;
+  }
+}
+
+/* Phone view */
+@media (max-width: 600px) {
+  .content {
+    width: 100%;
+    padding: 15px;
   }
 }

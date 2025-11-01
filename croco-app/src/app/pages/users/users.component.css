@@ -1,6 +1,5 @@
 /* Main content space for sidebar */
 .main-content {
-  margin-left: 200px; /* sidebar width */
   padding: 40px 50px;
   min-height: calc(100vh - 160px); /* adjust for header/footer */
   transition: margin-left 0.3s ease;
@@ -9,7 +8,7 @@
 /* Users container */
 .users-container {
   padding: 40px;
-  max-width: 100%;
+  max-width: 1000px;
   margin: 0 auto;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #f9fdf9;
@@ -29,7 +28,7 @@
 
 /* Search input */
 .search-box input {
-  width: 94%;
+  width: 100%;
   padding: 14px;
   border-radius: 10px;
   border: 2px solid #cfcfcf;
@@ -44,11 +43,12 @@
   box-shadow: 0 4px 12px rgba(0, 173, 9, 0.2);
 }
 
-/* Table container with responsive scroll */
+/* Table container */
 .table-container {
   overflow-x: auto;
-  margin-top: 20px;
+  margin: 20px auto; /* center table */
   border-radius: 12px;
+  max-width: 100%;
 }
 
 /* Table styles */
@@ -57,7 +57,8 @@ table {
   border-collapse: collapse;
   border-radius: 12px;
   overflow: hidden;
-  table-layout: fixed;
+  table-layout: fixed; /* prevent overflow */
+  margin: 0 auto; /* center table */
 }
 
 th, td {
@@ -141,6 +142,7 @@ tr:hover {
   table, thead, tbody, th, td, tr {
     display: block;
     width: 100%;
+    text-align: center; /* center content */
   }
 
   thead tr {
@@ -153,30 +155,36 @@ tr:hover {
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     padding: 12px 16px;
+    text-align: center; /* center row content */
   }
 
   tbody td {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* center content horizontally */
+    align-items: center;
+    flex-wrap: wrap;
     padding: 10px 0;
-    text-align: right;
     border: none;
     position: relative;
+    text-align: center;
   }
 
   tbody td::before {
     content: attr(data-label);
-    position: absolute;
-    left: 12px;
+    position: relative;
+    left: 0;
     font-weight: bold;
     color: #007a05;
-    text-align: left;
+    width: 100%;
+    display: block;
+    margin-bottom: 4px;
+    text-align: center; /* center label */
   }
 
   .posts-btn,
   .todos-btn {
     width: 48%;
-    margin: 5px 1% 0 1%;
+    margin: 5px 1%;
     font-size: 0.85rem;
   }
 }

@@ -1,65 +1,211 @@
+/* Sidebar */
 .nav {
   display: flex;
   flex-direction: column;
   gap: 15px;
   background-color: #f9f9f9;
-  padding: 20px 10px;
-  width: 200px;        /* Default width */
-  max-width: 20%;      /* Will shrink on smaller screens */
-  min-width: 110px;    /* Minimum width for usability */
+  padding: 20px;
+  width: 220px;
+  min-height: 100vh;
   border-right: 2px solid #ccc;
   position: fixed;
-  left: 0;
   top: 0;
-  bottom: 0;
+  left: 0;
   padding-top: 100px;
   box-shadow: 2px 0 8px rgba(0,0,0,0.05);
-  transition: width 0.3s ease;
-  z-index: 100;
-  margin-top: 0px;
+  transition: all 0.3s ease;
 }
 
 .nav ul {
   list-style: none;
   padding: 0;
-  margin-top: 10px;
+  margin: 0;
 }
 
 .nav li {
-  margin-top: 18px;
+  margin-top: 10px;
 }
 
 .nav a {
   text-decoration: none;
   color: #333;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  padding: 12px 20px;
-  border-radius: 12px;
-  transition: all 0.3s ease, transform 0.2s;
-  font-size: 1rem;
+  font-weight: 500;
+  display: block;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
 }
 
-.nav a .nav-icon {
-  margin-right: 12px;
-  font-size: 1.2rem;
-}
-
-.nav a:hover {
-  color: white;
-  background: linear-gradient(135deg, #00ad09, #007a05);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  transform: translateX(3px);
-}
-
+.nav a:hover,
 .nav li.active a {
   color: white;
   background: linear-gradient(135deg, #00ad09, #007a05);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-.nav li.active a .nav-icon {
-  transform: scale(1.2);
-  transition: transform 0.3s;
+/* Main content */
+.main-content {
+  margin-left: 220px; /* same as sidebar width */
+  padding: 40px 50px;
+  min-height: calc(100vh - 160px);
+  transition: margin-left 0.3s ease;
+  display: flex;
+  justify-content: center; /* center horizontally */
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+/* Users container */
+.users-container {
+  width: 100%;
+  max-width: 1100px; /* center and limit width */
+  margin: 0 auto;
+  padding: 40px;
+  background: #f9fdf9;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Table container */
+.table-container {
+  overflow-x: auto;
+  margin-top: 20px;
+  border-radius: 12px;
+}
+
+/* Table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  table-layout: fixed;
+}
+
+th, td {
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+th {
+  background: linear-gradient(135deg, #00ad09, #007a05);
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+tr:nth-child(even) {
+  background-color: #f3f9f3;
+}
+
+tr:hover {
+  background-color: #e9f8eb;
+  transition: 0.3s;
+}
+
+/* Buttons */
+.posts-btn,
+.todos-btn {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.posts-btn {
+  background: linear-gradient(135deg, #00ad09, #007a05);
+  color: white;
+}
+
+.todos-btn {
+  background: linear-gradient(135deg, #ffd700, #e4ba00);
+  color: white;
+  margin-top: 8px;
+}
+
+.posts-btn:hover,
+.todos-btn:hover {
+  transform: scale(1.07);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments */
+
+/* Medium screens: collapse sidebar */
+@media (max-width: 992px) {
+  .nav {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .users-container {
+    width: 95%;
+    padding: 20px;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+}
+
+/* Phones: stacked cards for table */
+@media (max-width: 600px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  thead tr {
+    display: none;
+  }
+
+  tbody tr {
+    margin-bottom: 20px;
+    background: #f3f9f3;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 12px 16px;
+  }
+
+  tbody td {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 0;
+    text-align: center;
+    border: none;
+  }
+
+  tbody td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #007a05;
+    display: block;
+    margin-bottom: 4px;
+    text-align: center;
+  }
+
+  .posts-btn,
+  .todos-btn {
+    width: 90%;
+    margin: 5px 0;
+  }
 }
