@@ -4,9 +4,9 @@
   gap: 15px;
   background-color: #f9f9f9;
   padding: 20px 10px;
-  width: 220px;        /* Default width */
-  max-width: 25%;      /* Will shrink on smaller screens */
-  min-width: 150px;    /* Minimum width for usability */
+  width: 200px;        /* Default width */
+  max-width: 20%;      /* Will shrink on smaller screens */
+  min-width: 110px;    /* Minimum width for usability */
   border-right: 2px solid #ccc;
   position: fixed;
   left: 0;
@@ -16,16 +16,17 @@
   box-shadow: 2px 0 8px rgba(0,0,0,0.05);
   transition: width 0.3s ease;
   z-index: 100;
+  margin-top: 0px;
 }
 
 .nav ul {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin-top: 10px;
 }
 
 .nav li {
-  margin-top: 10px;
+  margin-top: 18px;
 }
 
 .nav a {

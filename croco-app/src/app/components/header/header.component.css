@@ -11,31 +11,46 @@
   background: linear-gradient(135deg, #00ad09, #007a05);
   color: white;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-  border-radius: 0 0 20px 20px;
+  border-radius: 12px 12px 20px 20px;
   position: sticky;
   top: 0;
   z-index: 100;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
+/* Logo area */
 .logo-area {
   display: flex;
   flex-direction: column;
+  gap: 4px;
+  min-width: 0; /* allow shrinking */
 }
 
+/* Title */
 .title {
   font-weight: 700;
   text-decoration: none;
   color: white;
   font-size: 1.8rem;
   letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+/* Tagline */
 .tagline {
   font-size: 0.9rem;
   opacity: 0.9;
-  margin-top: 2px;
+  color: rgb(199, 199, 199);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+/* Datetime */
 .datetime {
   font-size: 1rem;
   font-weight: 500;
@@ -43,4 +58,47 @@
   background: rgba(255, 255, 255, 0.15);
   padding: 6px 12px;
   border-radius: 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: 50px; /* initial space from logo-area */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1440px) {
+  .datetime {
+    margin-left: 30px; /* shrink space slightly */
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .datetime {
+    margin-left: 20px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .header {
+    padding: 12px 24px;
+  }
+  .title {
+    font-size: 1.6rem;
+  }
+  .tagline {
+    font-size: 0.8rem;
+  }
+  .datetime {
+    margin-left: 15px;
+    font-size: 0.85rem;
+    padding: 5px 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .datetime {
+    margin-left: 10px;
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
 }

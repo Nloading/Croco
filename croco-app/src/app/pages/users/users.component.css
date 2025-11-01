@@ -1,6 +1,6 @@
 /* Main content space for sidebar */
 .main-content {
-  margin-left: 240px; /* sidebar width */
+  margin-left: 200px; /* sidebar width */
   padding: 40px 50px;
   min-height: calc(100vh - 160px); /* adjust for header/footer */
   transition: margin-left 0.3s ease;
