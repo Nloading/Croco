@@ -17,16 +17,18 @@
 
 .pointer {
   position: absolute;
-  top: -18px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 50%;       /* vertically centered */
+  left: 102%;        /* move to the far left edge */
+  transform: translate(-50%, -50%) rotate(-90deg); /* center + rotate to point right */
   width: 0;
   height: 0;
   border-left: 18px solid transparent;
   border-right: 18px solid transparent;
-  border-bottom: 30px solid #00ad09;
+  border-bottom: 30px solid #00ad09; /* triangle color */
   z-index: 30;
 }
+
+
 
 .wheel {
   width: 100%;
@@ -64,6 +66,18 @@
   color: #333;
 }
 
+/* Rotate each number back upright */
+.sector:nth-child(1) .sector-label { transform: rotate(0deg) translate(120px) rotate(0deg); }
+.sector:nth-child(2) .sector-label { transform: rotate(-36deg) translate(120px) rotate(36deg); }
+.sector:nth-child(3) .sector-label { transform: rotate(-72deg) translate(120px) rotate(72deg); }
+.sector:nth-child(4) .sector-label { transform: rotate(-108deg) translate(120px) rotate(108deg); }
+.sector:nth-child(5) .sector-label { transform: rotate(-144deg) translate(120px) rotate(144deg); }
+.sector:nth-child(6) .sector-label { transform: rotate(-180deg) translate(120px) rotate(180deg); }
+.sector:nth-child(7) .sector-label { transform: rotate(-216deg) translate(120px) rotate(216deg); }
+.sector:nth-child(8) .sector-label { transform: rotate(-252deg) translate(120px) rotate(252deg); }
+.sector:nth-child(9) .sector-label { transform: rotate(-288deg) translate(120px) rotate(288deg); }
+.sector:nth-child(10) .sector-label { transform: rotate(-324deg) translate(120px) rotate(324deg); }
+
 /* ===== CONTROLS ===== */
 .wheel-controls {
   display: flex;
@@ -89,6 +103,11 @@
   cursor: pointer;
 }
 
+.wheel-controls button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
 .error-message {
   color: #d32f2f;
   font-weight: 700;
@@ -103,7 +122,24 @@
   margin: 20px 0 10px;
 }
 
+.leaderboard-filters button {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #00ad09;
+  background: white;
+  color: #00ad09;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
 .leaderboard-filters button.active {
+  background: linear-gradient(135deg,#00ad09,#007f06);
+  color: white;
+}
+
+.leaderboard-filters button:hover {
+  transform: scale(1.05);
   background: linear-gradient(135deg,#00ad09,#007f06);
   color: white;
 }
@@ -130,7 +166,26 @@ td {
   background: #fafafa;
 }
 
+tr:nth-child(even) td { background-color: #f3f3f3; }
+tr:hover td { background-color: #eaffea; transition: 0.3s; }
+
+/* View Posts Button */
+.posts-btn {
+  padding: 6px 12px;
+  background-color: #00ad09;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.posts-btn:hover { transform: scale(1.05); background-color: #007a05; }
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 760px) {
   .wheel-wrapper { width: 260px; height: 260px; }
+  .wheel-controls { flex-direction: column; gap: 10px; }
+  .wheel-controls input { width: 100%; }
+  table { display: block; overflow-x: auto; white-space: nowrap; font-size: 14px; }
+  th, td { padding: 8px; }
 }

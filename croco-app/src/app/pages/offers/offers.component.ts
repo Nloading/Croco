@@ -20,26 +20,59 @@ export interface LeaderboardItem {
   styleUrls: ['./offers.component.css'],
 })
 export class OffersComponent {
-  // ====== Wheel Data ======
-  wheelNumbers = Array.from({ length: 10 }, (_, i) => i + 1);
+  // ------- WHEEL -------
+  wheelNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   inputNumber = signal<number | null>(null);
-  rotationAngle = signal<number>(0);
-  currentRotation = 0;
-  errorMessage = signal<string>('');
+  rotationAngle = signal(0);
+  errorMessage = signal('');
+  private currentRotation = 0; // track total rotation
 
-  // ====== Leaderboard ======
+spinWheel() {
+  const value = this.inputNumber();
+  const sectors = this.wheelNumbers.length;
+
+  if (!value || value < 1 || value > sectors) {
+    this.errorMessage.set(`Enter number between 1 and ${sectors}`);
+    return;
+  }
+
+  this.errorMessage.set('');
+
+  const sectorAngle = 360 / sectors;
+  const index = value - 1;
+
+  const extraSpins = 360; // 1 full spin clockwise
+
+  // Reset wheel virtually to 1, then spin to chosen number
+  const targetRotation = - (extraSpins + index * sectorAngle);
+
+  // Apply rotation
+  this.rotationAngle.set(targetRotation);
+}
+
+
+
+
+
+
+
+
+
+
+
+  // ------- LEADERBOARD -------
   leaderboard = signal<LeaderboardItem[]>(this.generateLeaderboard());
   filterWeek = signal<WeekType>('ALL');
   weekOptions: WeekType[] = ['I', 'II', 'III', 'IV', 'ALL'];
 
   generateLeaderboard(): LeaderboardItem[] {
     const weeks: Exclude<WeekType, 'ALL'>[] = ['I', 'II', 'III', 'IV'];
-    const data: LeaderboardItem[] = [];
+    const list: LeaderboardItem[] = [];
 
     weeks.forEach((w) => {
       for (let i = 1; i <= 10; i++) {
-        data.push({
-          customerId: Math.floor(Math.random() * 1000),
+        list.push({
+          customerId: Math.floor(Math.random() * 10000),
           loginName: `User${Math.floor(Math.random() * 1000)}`,
           place: i,
           week: w,
@@ -47,7 +80,7 @@ export class OffersComponent {
       }
     });
 
-    return data;
+    return list;
   }
 
   setFilter(week: WeekType) {
@@ -55,25 +88,8 @@ export class OffersComponent {
   }
 
   filteredLeaderboard() {
-    const selected = this.filterWeek();
-    if (selected === 'ALL') return this.leaderboard();
-    return this.leaderboard().filter((item) => item.week === selected);
-  }
-
-  // ====== Spin Wheel ======
-  spinWheel() {
-    const n = this.inputNumber();
-    if (!n || n < 1 || n > 10) {
-      this.errorMessage.set('Invalid number (1–10)');
-      return;
-    }
-
-    this.errorMessage.set('');
-    const sectorAngle = 360 / 10;
-    const randomSpins = 5 * 360;
-    const targetAngle = (10 - n + 1) * sectorAngle;
-
-    this.currentRotation += randomSpins + targetAngle;
-    this.rotationAngle.set(this.currentRotation);
+    const w = this.filterWeek();
+    if (w === 'ALL') return this.leaderboard();
+    return this.leaderboard().filter((item) => item.week === w);
   }
 }
