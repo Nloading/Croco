@@ -1,26 +1,81 @@
 .app-footer {
+  width: 100%;
   background: linear-gradient(135deg, #00ad09, #007a05);
   color: white;
-  text-align: center;
-  padding: 30px 20px;
+  padding: 16px 40px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  margin-top: 60px;
+  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.25);
+  border-radius: 20px 20px 0px 0px;
+  margin-top: auto;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1024px; /* match main content width */
+  margin: 0 auto;
+}
+
+.footer-logo-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.footer-title {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.footer-tagline {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  color: rgb(199, 199, 199);
 }
 
 .footer-content p {
-  margin: 6px 0;
-  font-size: 15px;
+  margin: 4px 0;
+  font-size: 0.95rem;
+  text-align: center;
 }
 
 .footer-subtitle {
-  font-size: 13px;
+  font-size: 0.85rem;
   opacity: 0.9;
 }
 
 .author {
   font-weight: bold;
   color: #fff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .app-footer {
+    padding: 12px 20px;
+    border-radius: 16px 16px 8px 8px;
+  }
+  
+  .footer-title {
+    font-size: 1.2rem;
+  }
+
+  .footer-tagline {
+    font-size: 0.8rem;
+  }
+
+  .footer-content p {
+    font-size: 0.85rem;
+  }
+
+  .footer-subtitle {
+    font-size: 0.75rem;
+  }
 }
