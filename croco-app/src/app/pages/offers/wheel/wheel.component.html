@@ -1,1 +1,21 @@
-<p>wheel works!</p>
+<div class="wheel-wrapper">
+  <div class="wheel" [style.transform]="'rotate(' + rotationAngle() + 'deg)'">
+    @for (n of numbers; let i = $index; track n) {
+      <div class="sector" [style.transform]="'rotate(' + (i * 36) + 'deg)'">
+        <span class="sector-label" [style.transform]="'rotate(' + -(i * 36) + 'deg)'">
+          {{ n }}
+        </span>
+      </div>
+    }
+  </div>
+  <div class="pointer"></div>
+</div>
+
+<div class="wheel-controls">
+  <input type="number" min="1" max="10" [(ngModel)]="inputNumber" placeholder="Enter 1-10" />
+  <button (click)="spinWheel()">Spin</button>
+</div>
+
+@if (errorMessage()) {
+  <div class="error-message">{{ errorMessage() }}</div>
+}

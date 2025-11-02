@@ -1,30 +1,7 @@
 <div class="offers-container">
-  <h2>Spin the Wheel</h2>
-
-  <!-- Wheel wrapper -->
-  <div class="wheel-wrapper">
-    <div class="wheel" [style.transform]="'rotate(' + rotationAngle() + 'deg)'">
-      @for (n of wheelNumbers; let i = $index; track n) {
-        <div class="sector" [style.transform]="'rotate(' + (i * 36) + 'deg)'">
-          <span class="sector-label" [style.transform]="'rotate(' + -(i * 36) + 'deg)'">
-            {{ n }}
-          </span>
-        </div>
-      }
-    </div>
-    <div class="pointer"></div>
-  </div>
-
-  <!-- Controls -->
-  <div class="wheel-controls">
-    <input type="number" min="1" max="10" [(ngModel)]="inputNumber" placeholder="Enter 1-10" />
-    <button (click)="spinWheel()">Spin</button>
-  </div>
-
-  @if (errorMessage()) {
-    <div class="error-message">{{ errorMessage() }}</div>
-  }
-
+    <h2>Spin the Wheel</h2>
+    <!-- implementing wheel from wheelcomponent -->
+    <app-wheel [numbers]="[1,2,3,4,5,6,7,8,9,10]"></app-wheel>
   <!-- Week filters -->
   <div class="leaderboard-filters">
     @for (w of weekOptions; track w) {
