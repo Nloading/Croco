@@ -10,10 +10,10 @@ cd Croco
 npm install
 (This will download all required packages specified in package.json.)
 
-3. Serve the Project
+4. Serve the Project
 ng serve
 (or if you prefer:
 npm start)
-4. Open in Browser
+5. Open in Browser
 After running the server, open your browser and go to:
 http://localhost:4200
