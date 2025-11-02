@@ -1,13 +1,15 @@
 <div class="todos-container">
-  <h2>Todos for User {{ userId() }}</h2>
+  <h2 class="title">
+    Todos for User {{ userId() }}
+  </h2>
 
-  @for (todo of todos(); track todo.id) {
-    <li [style.color]="todo.completed ? 'green' : 'black'">
-      {{ todo.title }}
-    </li>
-  }
-
-  @empty {
-    <li>No todos found for this user.</li>
-  }
+  <ul class="todo-list">
+    @for (todo of todos(); track todo.id) {
+      <li class="todo-item" [class.completed]="todo.completed">
+        <span>{{ todo.title }}</span>
+      </li>
+    } @empty {
+      <li class="todo-item empty">No todos found for this user.</li>
+    }
+  </ul>
 </div>
