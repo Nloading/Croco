@@ -19,25 +19,29 @@ interface Post {
 })
 export class PostsComponent {
   posts = signal<Post[]>([]);
-  userId = signal(0);
+  userId = signal<number | null>(null); // nullable
   selectedPost = signal<Post | null>(null);
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    // Subscribe to query params
     this.route.queryParams.subscribe(params => {
-      const id = +params['userId'] || 0;
+      const id = params['userId'] ? +params['userId'] : null;
       this.userId.set(id);
-      this.fetchPosts(id); // Pass the userId
+      this.fetchPosts(id);
     });
   }
 
-  fetchPosts(userId: number) {
+  fetchPosts(userId?: number | null) {
     this.http.get<Post[]>('https://jsonplaceholder.typicode.com/posts')
       .subscribe(data => {
-        // Filter posts by userId
-        this.posts.set(data.filter(p => p.userId === userId));
+        if (userId) {
+          // Filter posts by userId
+          this.posts.set(data.filter(p => p.userId === userId));
+        } else {
+          // Show all posts
+          this.posts.set(data);
+        }
       });
   }
 

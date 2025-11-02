@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLinkActive } from "@angular/router";
+import { RouterLinkActive, RouterLinkWithHref } from "@angular/router";
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLinkActive],
+  imports: [RouterLinkActive, RouterLinkWithHref],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

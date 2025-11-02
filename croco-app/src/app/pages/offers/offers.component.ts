@@ -44,6 +44,8 @@ export class OffersComponent {
     return list;
   }
 
+  // api only has 1-10 id users posts for some users website will say that there is no posts
+
   setFilter(week: WeekType) {
     this.filterWeek.set(week);
   }
